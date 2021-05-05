@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.windText {
+    width: 145px;
+    height: 10px;
+    background-color: rgb(101, 111, 121);
+    color: azure;
+    padding: 16px;  
+    
+}
+.windButton {   
+    width: 180px;
+    height: 150px; 
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;   
+    padding-left: 50%!important;  
+    margin-left: -88px;  
+}
+
+.numberButton {    
+    width: 35px;
+    height: 35px;
+    background-color: rgb(141, 221, 173);
+    color: rgb;    
+    text-align: center;
+    padding-left: 2px;
+}
+
+.numberResult {
+    width: 180px;
+    height: 35px;    
+    background-color: rgb(101, 111, 121);  
+    text-align: center;
+    color: azure; 
+}
+.numberReset {
+    width: 110px;
+    height: 35px;    
+    background-color: rgb(101, 111, 121);  
+    text-align: center;
+    color: azure; 
+}
+
