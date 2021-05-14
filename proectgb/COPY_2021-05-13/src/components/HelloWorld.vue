@@ -1,26 +1,26 @@
 <template>
   <div class="windButton">
     <div class="operButton">
-      <input class="inputOperand1" v-model.number="operand1" ref="op1" />
-      <input class="inputOperand2" v-model.number="operand2" ref="op2" />
-      <input class="windText" v-model.number="result" />
+      <input class="inputOperand1" v-model.number="operand1" placeholder="0" />
+      <input class="inputOperand2" v-model.number="operand2" placeholder="0" />
+      <input class="windText" v-model.number="result" placeholder="0"/>
       <button class="numberButton" @click="calculate(oper)" v-for="oper in numOperation" :id="oper" :key="oper"> {{oper}} </button>
       <button class="numberReset" @click="reset">CE</button>
     </div>
     <div class="hideKeyboard">
-      <input type="checkbox" id="displayKeyboard" value="Отобразить экранную клавиатуру" v-model="checkedNames">
-      <label for="displayKeyboard">Отобразить экранную клавиатуру</label>
+      <input type="checkbox" id="jack" value="Отобразить экранную клавиатуру" v-model="checkedNames">
+      <label for="jack">Отобразить экранную клавиатуру</label>
     </div>
     <div v-if="checkedNames" class="clava">
       <button class="numberButton"
-      @click="numberInput(numb)" v-for="numb in 10" :key="numb"
+      @click="numberInput(numb)" v-for="numb in numButton" :id="numb" :key="numb"
       > {{numb}} </button>
       <button class="udalButton"
-      @click="udSymbol()"> {{udalSymb}} </button>
+      @click="numberInput(udalSymb)"> {{udalSymb}} </button>
       <div class="radioButton">
-        <input @click="onChoose(1)" type="radio" id="one" value="Операнд 1" v-model="picked">
+        <input type="radio" id="one" value="Операнд 1" v-model="picked">
         <label for="one">Операнд 1</label>
-        <input @click="onChoose(2)" type="radio" id="two" value="Операнд 2" v-model="picked">
+        <input type="radio" id="two" value="Операнд 2" v-model="picked">
         <label for="Операнд 2">Операнд 2</label>
       </div>
     </div>
@@ -32,6 +32,7 @@
 export default {
   data: () => ({
     checkedNames: true,
+    totalResult: 0,
     operation: '',
     operand1: 0,
     operand2: 0,
@@ -39,22 +40,15 @@ export default {
     arg1: '',
     arg2: '',
     result: '',
+    prom: '',
     picked: 'Операнд 1',
-    numOperation: ['+', '-', '/', '*', '^', '%']
+    udalSimb: '←',
+    numButton: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    numOperation: ['+', '-', '/', '*', '^', '%'],
+    operationClick: true
   }),
   props: {},
   methods: {
-    onChoose (op) {
-      const op1 = this.$refs.op1
-      const op2 = this.$refs.op2
-      console.log(op1)
-      console.log(op1)
-      if (op === 1) {
-        op1.focus()
-      } else {
-        op2.focus()
-      }
-    },
     calculate (op) {
       const { operand1, operand2 } = this
       const calcOperations = {
@@ -66,23 +60,6 @@ export default {
         '%': () => operand1 % operand2
       }
       this.result = calcOperations[op]()
-    },
-    udSymbol () {
-      if (this.picked === 'Операнд 1') {
-        this.arg1 = this.arg1.substring(0, this.arg1.length - 1)
-        if (this.arg1.length > 0) {
-          this.operand1 = parseInt(this.arg1)
-        } else {
-          this.operand1 = 0
-        }
-      } else {
-        this.arg2 = this.arg2.substring(0, this.arg2.length - 1)
-        if (this.arg2.length > 0) {
-          this.operand2 = parseInt(this.arg2)
-        } else {
-          this.operand2 = 0
-        }
-      }
     },
     numberInput (up) {
       if (this.picked === 'Операнд 1') {
@@ -103,6 +80,8 @@ export default {
   }
 }
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
 </style>
