@@ -1,7 +1,7 @@
 <template>
   <div class="itemsTable">
     <button class="operButton"
-      @click="numberPage(nPage)" v-for="nPage in colPage" :key="nPage"> {{nPage}} </button>
+      @click="numberPage(nPage)" v-for="nPage in amount" :key="nPage"> {{nPage}} </button>
   </div>
 </template>
 
@@ -9,20 +9,20 @@
 export default {
   data () {
     return {
-      listN: 0,
-      listK: 0
     }
   },
   props: {
-    items: Array,
-    colPage: Number
+    length: Number,
+    n: Number
+  },
+  computed: {
+    amount () {
+      return Math.ceil(this.length / this.n)
+    }
   },
   methods: {
     numberPage (op) {
-      const { listN, listK } = this
-      this.listN = op * 5 - 5
-      this.listK = this.listN + 5
-      this.$emit('changePage', { listN, listK })
+      this.$emit('changePage', op)
     }
   }
 }
