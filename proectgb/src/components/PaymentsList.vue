@@ -1,6 +1,6 @@
 <template>
 <div class="table">
-  <paymentForm @add="onDataAdded" />
+  <paymentForm :length="getPaymentslist.length" />
     <tr>
       <table id="myTable">
         <td class="strTable"> № п/п </td>
@@ -45,11 +45,12 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getPaymentslist'
+      'getPaymentslist',
+      'validPaymentslist'
     ]),
     currentElements () {
       const { n, page } = this
-      return this.getPaymentslist.slice(n * (page - 1), n * (page - 1) + n)
+      return this.validPaymentslist.slice(n * (page - 1), n * (page - 1) + n)
     }
   }
 }

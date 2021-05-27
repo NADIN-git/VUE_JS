@@ -1,18 +1,15 @@
 <template>
   <div class="addTable">
-    <button class="operButton" @click="sw">Форма добавления расходов</button>
-    <div v-if="formaAdd">
-      <input class="operButton" placeholder="Дата" v-model="date" />
-      <!--input class="operButton" placeholder="Категория" v-model="category" /-->
+    <input class="operButton" placeholder="Дата" v-model="date" />
       <select class="operButton" v-model="category">
         <option disabled value="">Выберите один из вариантов</option>
         <option>Образование</option>
         <option>Коммунальные услуги</option>
         <option>Спорт</option>
+        <option>Транспорт</option>
       </select>
       <input class="operButton" placeholder="Цена" v-model.number="price" />
       <button class="operButton" @click="addTable">Добавить</button>
-    </div>
   </div>
 </template>
 
@@ -21,19 +18,23 @@ import { mapMutations, mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      id: this.getPaymentslist.length + 1,
+      id: '',
       date: '',
       category: '',
       price: '',
       formaAdd: false
     }
   },
+  props: {
+    length: Number
+  },
   methods: {
     ...mapMutations([
       'addRecord'
     ]),
     ...mapGetters([
-      'getPaymentslist'
+      'getPaymentslist',
+      'validPaymentslist'
     ]),
     sw () {
       if (this.formaAdd === false) {
@@ -48,10 +49,19 @@ export default {
         date: this.date,
         category: this.category,
         price: this.price,
-        id: this.id
+        id: this.length + 1
       })
-      this.date = this.price = this.category = ''
+      this.price = this.category = ''
     }
+  },
+  mounted () {
+    this.id = this.length + 1
+    this.category = ''
+    this.category = this.$route.params.category
+    this.price = this.$route.query.value
+    const nDate = new Date()
+    const nMonth = nDate.getMonth() + 1
+    this.date = nDate.getDate() + '.' + nMonth + '.' + nDate.getFullYear()
   }
 }
 </script>
