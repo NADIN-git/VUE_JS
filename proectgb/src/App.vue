@@ -1,28 +1,30 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Добро пожаловать to Your Vue.js App" :mybool="false"/>
+    <header class="myHeader">
+      <router-link  to="/mainList">Мои личные расходы</router-link>
+      <router-link  to="/add/payment/Образование?value=5000">Образование-5000</router-link>
+      <router-link  to="/add/payment/Спорт?value=2400">Спорт-2400</router-link>
+      <router-link  to="/add/payment/Транспорт?value=1000">Транспорт-1000</router-link>
+      <br/>
+    </header>
+    <main>
+      <router-view />
+    </main>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data () {
+    return {
+      category: 'AddPayment'
+    }
+  },
+  mounted () {
   }
 }
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss" module>
 </style>
