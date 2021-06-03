@@ -1,6 +1,6 @@
 <template>
 <div class="table">
-  <paymentForm :length="getPaymentslist.length" />
+  <paymentForm @add="onDataAdded" />
     <tr>
       <table id="myTable">
         <td class="strTable"> № п/п </td>
@@ -19,14 +19,17 @@
         </tr>
       </table>
     </div>
-    <paymentPage @changePage="onChangePage" :length="getPaymentslist.length" :n="n" />
+    <paymentPage
+    @changePage="onChangePage"
+    :length="12"
+    :n="n" />
   </div>
 </template>
 
 <script>
 import PaymentPage from './PaymentPage'
 import PaymentForm from './PaymentForm'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     PaymentPage,
@@ -34,23 +37,29 @@ export default {
   },
   data () {
     return {
-      page: 5,
-      n: 10
+      page: 1,
+      n: 3
     }
   },
   methods: {
+    ...mapActions([
+      'fetchData'
+    ]),
     onChangePage (p) {
       this.page = p
+      this.fetchData(p)
     }
+  },
+  mounted () {
+    this.fetchData(this.page)
   },
   computed: {
     ...mapGetters([
-      'getPaymentslist',
-      'validPaymentslist'
+      'getPaymentslist'
     ]),
     currentElements () {
       const { n, page } = this
-      return this.validPaymentslist.slice(n * (page - 1), n * (page - 1) + n)
+      return this.getPaymentslist.slice(n * (page - 1), n * (page - 1) + n)
     }
   }
 }
