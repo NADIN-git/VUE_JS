@@ -1,32 +1,28 @@
 <template>
   <div id="app">
-    <header :class="[$style.header]">
-      Мои личные расходы
-    </header>
-    <main>
-      <paymentsList />
-    </main>
+    <img alt="Vue logo" src="./assets/logo.png">
+    <HelloWorld msg="Добро пожаловать to Your Vue.js App" :mybool="false"/>
   </div>
 </template>
 
 <script>
-import PaymentsList from './components/PaymentsList'
+import HelloWorld from './components/HelloWorld.vue'
+
 export default {
   name: 'App',
   components: {
-    PaymentsList
-  },
-  data () {
-    return {
-    }
+    HelloWorld
   }
 }
 </script>
 
-<style lang="scss" module>
-.header {
-  color: black;
-  font-size: 25px;
-  padding-left: 250px
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>
