@@ -2,47 +2,60 @@
     margin: 0;
     padding: 0;
 }
-
-.windText {
-    width: 145px;
-    height: 10px;
-    background-color: rgb(101, 111, 121);
-    color: azure;
-    padding: 16px;  
-    
-}
-.windButton {   
-    width: 180px;
-    height: 150px; 
-    text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;   
-    padding-left: 50%!important;  
-    margin-left: -88px;  
-}
-
-.numberButton {    
-    width: 35px;
+.strTable {    
+    width: 200px;
     height: 35px;
     background-color: rgb(141, 221, 173);
     color: rgb;    
-    text-align: center;
-    padding-left: 2px;
+    text-align: center;    
 }
+.operButton {    
+    border: 1mm ridge rgb(141, 221, 173);    
+    margin-bottom: 15px;
+}
+.contextMenu {
+    width: 100px;
+    border: 1mm ridge rgb(141, 221, 173); 
+    z-index: -50px; 
+    list-style: none;
+    border-radius: 10px; /* Радиус скругления */ 
+    box-shadow: 1px 1px 4px rgba(0,0,0,.2);  
+}
+.contextMenuPunct {
+    position: relative;
+    z-index: 50;
+    color: rgb;
+}
+.formRed {
+    position: relative;
+    z-index: 50;
+    width: 760px;
+    height: 25px;
+    border: 1mm ridge rgb(141, 221, 173); 
+    margin-left: -770px;
+    margin-top: -40px;
+    border-radius: 10px; /* Радиус скругления */ 
+    box-shadow: 1px 1px 4px rgba(0,0,0,.2);  
+}
+.table .itemsTable {     
+    width: 800px;
+    display: flex;    
+}
+.itemsTable { 
+    margin-top: 10px;      
+    margin-bottom: 10px;
+    padding: 10px;    
+}
+.myHeader {
+    width: 550px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: black;
+    font-size: 17px;
+    padding-left: 0px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+  }
 
-.numberResult {
-    width: 180px;
-    height: 35px;    
-    background-color: rgb(101, 111, 121);  
-    text-align: center;
-    color: azure; 
-}
-.numberReset {
-    width: 110px;
-    height: 35px;    
-    background-color: rgb(101, 111, 121);  
-    text-align: center;
-    color: azure; 
-}
 
