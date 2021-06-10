@@ -2,81 +2,60 @@
     margin: 0;
     padding: 0;
 }
-
-.windText {
-    width: 206px;
-    height: 25px;
-    background-color: rgb(101, 111, 121);
-    color: azure; 
-}
-.windButton {   
-    width: 350px;
-    height: 300px; 
-    text-align: center;    
-    padding-left: 50%!important;  
-    margin-left: -95px;  
-}
-
-.numberButton {    
-    width: 35px;
+.strTable {    
+    width: 200px;
     height: 35px;
     background-color: rgb(141, 221, 173);
     color: rgb;    
     text-align: center;    
 }
-.clava {
-    margin-top: 20px;
-    margin-left: -15px;
-    width: 210px;
-    height: 70px; 
-    border: 2mm ridge rgb(141, 221, 173);
+.operButton {    
+    border: 1mm ridge rgb(141, 221, 173);    
+    margin-bottom: 15px;
 }
-
-.operButton {
-    width: 212px;
-    height: 125px; 
-    border: 2mm ridge rgb(141, 221, 173);
-    margin-left: -15px;
+.contextMenu {
+    width: 100px;
+    border: 1mm ridge rgb(141, 221, 173); 
+    z-index: -50px; 
+    list-style: none;
+    border-radius: 10px; /* Радиус скругления */ 
+    box-shadow: 1px 1px 4px rgba(0,0,0,.2);  
 }
-.numberReset {
-    width: 210px;
-    height: 30px;    
-    background-color: rgb(101, 111, 121);  
-    text-align: center;
-    color: azure;     
+.contextMenuPunct {
+    position: relative;
+    z-index: 50;
+    color: rgb;
 }
-
-.udalButton {
-    width: 70px;
-    height: 35px;    
-    background-color: rgb(101, 111, 121);  
-    text-align: center;
-    color: azure;     
-}
-
-.inputOperand1, .inputOperand2 {
-    padding-top: 4px;
-    width: 104px;
+.formRed {
+    position: relative;
+    z-index: 50;
+    width: 760px;
     height: 25px;
-    background-color: rgb(101, 111, 121);
-    color: azure;   
-    border: 0.2mm ridge rgb(141, 221, 173);
+    border: 1mm ridge rgb(141, 221, 173); 
+    margin-left: -770px;
+    margin-top: -40px;
+    border-radius: 10px; /* Радиус скругления */ 
+    box-shadow: 1px 1px 4px rgba(0,0,0,.2);  
 }
-.hideKeyboard {
-    width: 300px;
-    height: 10px;  
-    margin-top: 10px;
-    margin-left: -35px;
-    text-align: left;   
+.table .itemsTable {     
+    width: 800px;
+    display: flex;    
 }
-
-.radioButton {
-    width: 200px;    
-    margin-top: 20px;
-    margin-left: -15px;
+.itemsTable { 
+    margin-top: 10px;      
+    margin-bottom: 10px;
+    padding: 10px;    
+}
+.myHeader {
+    width: 550px;
     display: flex;
-    flex-wrap: wrap;    
-    justify-content: space-between;  
-}
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: black;
+    font-size: 17px;
+    padding-left: 0px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+  }
 
 
