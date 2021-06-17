@@ -1,87 +1,93 @@
 <template>
-  <div>
-    <nav>
-      <transition name="fade" mode="out-in">
-        <i menu v-if="!show" @click="show = !show" key="menu">...</i>
-        <i clear v-else  @click="closeContext" key="clear">...</i>
-      </transition>
-      <transition name="fade">
-        <ul class="contextMenu" v-if="show">
-          <li @oprPrice="onOprPrice" @click="showForm = !showForm" class="contextMenuPunct">Редактировать</li>
-          <li class="contextMenuPunct">Удалить</li>
-        </ul>
-      </transition>
-     </nav>
-     <paymentForm class="formRed" v-if="showForm" @closeForm="onCloseForm" />
+  <div v-if="shown" :class="[$style.context]" :style="styles">
+    <div v-for="item in items"
+    :key="item.text"
+    :class="[$style.context_item]"
+    @click="onClick(item)">
+      {{ item.text }}
+    </div>
   </div>
 </template>
 
 <script>
-import PaymentForm from './PaymentForm'
-import { mapGetters } from 'vuex'
 export default {
-  components: {
-    PaymentForm
-  },
   data () {
     return {
-      show: false,
-      showForm: false
+      items: [],
+      shown: false,
+      xPos: 0,
+      yPos: 0
     }
   },
   props: {
-    length: Number,
-    itemAttr: Number
   },
   methods: {
-    sw () {
-      if (this.formaAdd === false) {
-        this.formaAdd = true
-      } else {
-        this.formaAdd = false
+    onClick (item) {
+      item.action()
+      this.onClose()
+    },
+    onShow ({ items, caller }) {
+      this.items = items
+      this.shown = true
+      this.setPosition(caller)
+    },
+    onClose () {
+      this.shown = false
+      this.items = []
+    },
+    setPosition (caller) {
+      const computed = caller.getBoundingClientRect()
+      this.xPos = computed.left
+      this.yPos = computed.top
+    }
+  },
+  computed: {
+    styles () {
+      return {
+        top: `${this.yPos}px`,
+        left: `${this.xPos + 10}px`
       }
-    },
-    addTable () {
-      this.formaAdd = true
-      this.addRecord({
-        date: this.date,
-        category: this.category,
-        price: this.price,
-        id: this.length + 1
-      })
-      this.price = this.category = ''
-    },
-    closeContext () {
-      this.show = false
-      this.showForm = false
-    },
-    onCloseForm () {
-      this.showForm = false
-    },
-    onOprPrice (p) {
-      this.itemAttr = p
-      console.log(this.itemAttr)
     }
   },
   mounted () {
-    this.id = this.length + 1
-    this.category = ''
-    this.category = this.$route.params.category
-    const nDate = new Date()
-    const nMonth = nDate.getMonth() + 1
-    this.date = nDate.getDate() + '.' + nMonth + '.' + nDate.getFullYear()
+    this.$context.EventBus.$on('show', this.onShow)
+    this.$context.EventBus.$on('close', this.onClose)
   },
-  computed: {
-    ...mapGetters([
-      'validPaymentslist'
-    ]),
-    currentElements () {
-      const n = this
-      return this.validPaymentslist.slice(n)
-    }
+  beforeDestroy () {
+    this.$context.EventBus.$off('show', this.onShow)
+    this.$context.EventBus.$off('close', this.onClose)
   }
 }
 </script>
-<style scoped lang="scss">
+
+<style module lang="scss">
+.context {
+  width: 60px;
+  background: #fff;
+  background-color: rgb(141, 221, 173);
+  padding: -20px;
+  min-height: 20px;
+  position: absolute;
+  border: 1mm solid rgb(141, 221, 173);
+  margin: 1px 5px 5px 20px;
+  text-align: center;
+  border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.context:after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  display: block;
+  position: absolute;
+  top: 7px;
+  right: 68px;
+  border-top: 1mm solid rgb(141, 221, 173);
+  border-left: 1mm solid rgb(141, 221, 173);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  background:#fff;
+  background-color: rgb(141, 221, 173);
+}
 
 </style>

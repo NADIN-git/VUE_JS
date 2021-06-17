@@ -1,14 +1,8 @@
 <template>
-<div>
-  <!--button @click="closePaymentForm">Закрыть модальное окно</button-->
-  <!--paymentForm :length="getPaymentslist.length" /-->
-  <v-data-table
-    :headers="tableHeaders"
-    :items="getPaymentslist"
-    :items-per-page="10"
-    class="elevation-1">
-  </v-data-table>
-    <!--tr>
+<div class="table">
+  <Modal v-if="modalFlag" modal='PaymentForm' />
+  <button :length="getPaymentslist.length" @click="showPaymentForm">Открыть модальное окно</button>
+    <tr>
       <table id="myTable">
         <td class="strTable"> № п/п </td>
         <td class="strTable"> Дата </td>
@@ -16,58 +10,56 @@
         <td class="strTable"> Цена </td>
       </table>
     </tr>
-    <div v-for="(item,index) in currentElements"
-      :key="index"
-      :item="item"
-      :editMethod="editMethod">
+    <div v-for="(item,index) in currentElements" :key="index">
       <table id="myTable">
         <tr>
           <td class="strTable">{{ item.id }}</td>
           <td class="strTable">{{ item.date }}</td>
           <td class="strTable">{{ item.category }}</td>
           <td class="strTable">{{ item.price }}</td>
-          <Modal v-on="oprPrice(item.price)" v-if="modalFlag" modal='ContextMenu' :itemAttr="item.price" />
+          <td @click="onContextMenuClick($event, item.id)" class="strMenu">⋮</td>
         </tr>
       </table>
-    </div-->
-    <!--paymentPage @changePage="onChangePage" :length="getPaymentslist.length" :n="n" /-->
+    </div>
+    <paymentPage @changePage="onChangePage" :length="getPaymentslist.length" :n="n" />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import PaymentPage from './PaymentPage'
+import Modal from './modalwindow/Modal'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
+  components: {
+    PaymentPage,
+    Modal
+  },
   data () {
     return {
-      masKat: ['Образование', 'Спорт', 'Коммунальные услуги'],
       page: 5,
       n: 10,
-      modalFlag: true,
-      item: null,
-      tableHeaders: [
-        { text: '#', value: 'id' },
-        { text: 'Дата', value: 'date' },
-        { text: 'Категория', value: 'category' },
-        { text: 'Цена', value: 'price' }
-      ]
+      modalFlag: false
     }
   },
-  props: {
-    showForm: Boolean
-  },
   methods: {
+    ...mapMutations([
+      'deleteItem'
+    ]),
     onChangePage (p) {
       this.page = p
     },
     showPaymentForm () {
-      this.$modal.show('ContextMenu')
+      this.$modal.show('PaymentForm')
     },
     closePaymentForm () {
       this.$modal.close()
     },
-    oprPrice (op) {
-      this.$emit('onOprPrice', op)
-      console.log(op)
+    onContextMenuClick (event, id) {
+      const items = [
+        { text: 'Delete', action: () => { this.deleteItem(id) } },
+        { text: 'Edit', action: () => { this.$modal.show('PaymentForm', { id }) } }
+      ]
+      this.$context.show({ event, items })
     }
   },
   computed: {
@@ -82,6 +74,5 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
-
+<style lang="scss" module>
 </style>

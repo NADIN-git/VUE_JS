@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <!--input class="operButton" placeholder="Дата" v-model="date" />
+  <div class="addRecord">
+    <input class="operButton" placeholder="Дата" v-model="date" />
       <select class="operButton" v-model="category">
         <option disabled value="">Выберите один из вариантов</option>
         <option>Образование</option>
@@ -8,48 +8,8 @@
         <option>Спорт</option>
         <option>Транспорт</option>
       </select>
-      <input @oprPrice="onOprPrice" class="operButton" placeholder="Цена" v-model.number="price" />
+      <input class="operButton" placeholder="Цена" v-model.number="price" />
       <button class="operButton" @click="addTable">Сохранить</button>
-      <button class="operButton" @click="closeWindowForm">Выйти без сохранения</button-->
-      <v-col
-        cols="12"
-        sm="6"
-        md="4">
-        <v-menu
-          v-model="data"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          transition="scale-transition"
-          offset-y
-          min-width="auto">
-          <template v-slot:activator="{ on, attrs }">
-            <v-text-field
-              v-model="date"
-              label="Дата"
-              prepend-icon="mdi-calendar"
-              readonly
-              v-bind="attrs"
-              v-on="on">
-            </v-text-field>
-          </template>
-          <v-date-picker
-            v-model="date"
-            @input="menu2 = false">
-          </v-date-picker>
-        </v-menu>
-      </v-col>
-      <v-spacer></v-spacer>
-      <v-text-field
-        v-model="category"
-        label="Категория"
-        required>
-      </v-text-field>
-      <v-text-field
-        v-model.number="price"
-        label="Цена"
-        required>
-      </v-text-field>
-      <v-btn @click="addTable">Сохранить</v-btn>
   </div>
 </template>
 
@@ -62,23 +22,26 @@ export default {
       date: '',
       category: '',
       price: '',
-      formaAdd: true
+      formaAdd: false
     }
   },
   props: {
     length: Number,
-    n: Number,
-    showForm: Boolean,
-    itemAttr: Number
+    itemID: Number
   },
   methods: {
     ...mapMutations([
-      'addRecord'
+      'addRecord',
+      'updateRecord',
+      'addNewRecord'
     ]),
     ...mapGetters([
       'getPaymentslist',
       'validPaymentslist'
     ]),
+    closePaymentForm () {
+      this.$modal.close()
+    },
     sw () {
       if (this.formaAdd === false) {
         this.formaAdd = true
@@ -88,29 +51,36 @@ export default {
     },
     addTable () {
       this.formaAdd = true
-      this.addRecord({
-        date: this.date,
-        category: this.category,
-        price: this.price,
-        id: this.length + 1
-      })
-      this.price = this.category = ''
-    },
-    closeWindowForm () {
-      this.$emit('closeForm')
-    },
-    onOprPrice (p) {
-      this.price = p
-      this.itemAttr = p
-      console.log(this.itemAttr)
+      const { date, category, price } = this
+      const payload = { date, category, price }
+      if (this.itemID) {
+        payload.id = this.itemID
+        this.updateRecord(payload)
+      } else {
+        this.addNewRecord(payload)
+      }
     }
   },
+  computed: {
+    ...mapGetters([
+      'getPaymentslist'
+    ])
+  },
   mounted () {
-    this.id = this.length + 1
     this.category = ''
     this.category = this.$route.params.category
-    this.price = ''
-    this.price = this.$route.query.category
+    this.price = this.$route.query.value
+    const nDate = new Date()
+    const nMonth = nDate.getMonth() + 1
+    this.date = nDate.getDate() + '.' + nMonth + '.' + nDate.getFullYear()
+    if (this.itemID) {
+      const item = this.getPaymentslist.find(p => p.id === this.itemID)
+      if (item) {
+        this.date = item.date
+        this.category = item.category
+        this.price = item.price
+      }
+    }
   }
 }
 </script>

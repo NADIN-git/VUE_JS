@@ -1,56 +1,55 @@
 <template>
-  <div>
-    <div :class="[$style.wrapper]">
-      <div :class="[$style.overlay]">
+  <div :class="[$style.wrapper]">
+    <div :class="[$style.overlay]">
       <div :class="[$style.content]">
-        <ContextMenu v-if="modalFlag" modal='ContextMenu' />
-      </div>
+        <PaymentForm v-if="name === 'PaymentForm'" :itemID="settings && settings.id" />
+        <button @click="onClose">Закрыть модальное окно</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ContextMenu from '../ContextMenu'
+import PaymentForm from '../PaymentForm'
 export default {
   components: {
-    ContextMenu
-  },
-  data () {
-    return {
-      modalFlag: true
-    }
+    PaymentForm
   },
   props: {
     name: String,
-    itemAttr: Number
+    settings: Object
+  },
+  methods: {
+    onClose () {
+      this.$modal.close()
+    }
   }
 }
 </script>
 
 <style module>
 .wrapper {
+  margin-top: 15px;
   position: absolute;
-  width: 100px;
-  height: 100 vh;
-  border: 1px solid transparent;
-  border-radius: 3px;
+  width: 100%;
+  height: 50vh;
   .overlay {
-    border: 1px solid;
-    z-index: -0;
+    z-index: 0;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgb(141, 221, 173);
-    border-radius: 3px;
+    background: rgba (50,50,50,0.5);
   }
   .content {
     position: relative;
-    z-index: -0;
-    text-decoration: none;
-     border-radius: 3px;
+    z-index: 100;
+    width: 600px;
+    height: 55px;
+    background: rgb(141, 221, 173);
+    color: rgb;
+    text-align: center;
   }
 }
 </style>

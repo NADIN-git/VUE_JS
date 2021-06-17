@@ -9,33 +9,32 @@
     color: rgb;    
     text-align: center;    
 }
+.addRecord {
+    margin-top: 35px;
+    padding-top: 15px;
+    width: 700px;
+    height: 55px;
+    background: rgb(141, 221, 173);
+    color: rgb;    
+    text-align: center;    
+}
+.closeRecord {
+    height: 20px;
+    margin-top: -15px;
+    background: rgb(141, 221, 173);
+    color: rgb;
+}
+
+.strMenu {
+    width: 20px;
+    height: 35px;
+    background-color: rgb(141, 221, 173);
+    color: rgb;    
+    text-align: center; 
+}
 .operButton {    
     border: 1mm ridge rgb(141, 221, 173);    
     margin-bottom: 15px;
-}
-.contextMenu {
-    width: 100px;
-    border: 1mm ridge rgb(141, 221, 173); 
-    z-index: -50px; 
-    list-style: none;
-    border-radius: 10px; /* Радиус скругления */ 
-    box-shadow: 1px 1px 4px rgba(0,0,0,.2);  
-}
-.contextMenuPunct {
-    position: relative;
-    z-index: 50;
-    color: rgb;
-}
-.formRed {
-    position: relative;
-    z-index: 50;
-    width: 760px;
-    height: 25px;
-    border: 1mm ridge rgb(141, 221, 173); 
-    margin-left: -770px;
-    margin-top: -40px;
-    border-radius: 10px; /* Радиус скругления */ 
-    box-shadow: 1px 1px 4px rgba(0,0,0,.2);  
 }
 .table .itemsTable {     
     width: 800px;
@@ -57,5 +56,4 @@
     padding-right: 10px;
     padding-bottom: 15px;
   }
-
 
