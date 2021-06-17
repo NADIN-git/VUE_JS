@@ -2,47 +2,58 @@
     margin: 0;
     padding: 0;
 }
-
-.windText {
-    width: 145px;
-    height: 10px;
-    background-color: rgb(101, 111, 121);
-    color: azure;
-    padding: 16px;  
-    
-}
-.windButton {   
-    width: 180px;
-    height: 150px; 
-    text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;   
-    padding-left: 50%!important;  
-    margin-left: -88px;  
-}
-
-.numberButton {    
-    width: 35px;
+.strTable {    
+    width: 200px;
     height: 35px;
     background-color: rgb(141, 221, 173);
     color: rgb;    
-    text-align: center;
-    padding-left: 2px;
+    text-align: center;    
+}
+.addRecord {
+    margin-top: 35px;
+    padding-top: 15px;
+    width: 700px;
+    height: 55px;
+    background: rgb(141, 221, 173);
+    color: rgb;    
+    text-align: center;    
+}
+.closeRecord {
+    height: 20px;
+    margin-top: -15px;
+    background: rgb(141, 221, 173);
+    color: rgb;
 }
 
-.numberResult {
-    width: 180px;
-    height: 35px;    
-    background-color: rgb(101, 111, 121);  
-    text-align: center;
-    color: azure; 
+.strMenu {
+    width: 20px;
+    height: 35px;
+    background-color: rgb(141, 221, 173);
+    color: rgb;    
+    text-align: center; 
 }
-.numberReset {
-    width: 110px;
-    height: 35px;    
-    background-color: rgb(101, 111, 121);  
-    text-align: center;
-    color: azure; 
+.operButton {    
+    border: 1mm ridge rgb(141, 221, 173);    
+    margin-bottom: 15px;
 }
+.table .itemsTable {     
+    width: 800px;
+    display: flex;    
+}
+.itemsTable { 
+    margin-top: 10px;      
+    margin-bottom: 10px;
+    padding: 10px;    
+}
+.myHeader {
+    width: 550px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: black;
+    font-size: 17px;
+    padding-left: 0px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+  }
 
